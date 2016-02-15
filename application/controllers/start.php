@@ -2,12 +2,6 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Start extends CI_Controller {
-
-	function __construct(){
-		parent::__construct();
-		$this->load->database();
-	}
-
 	public function index() {
 		$this->load->view('start/index');
 	}
@@ -27,19 +21,20 @@ class Start extends CI_Controller {
 	}
 
 	public function login(){
-		$this->load->model('StartModel');
 		$loginMemberInfo['id'] = $_POST['email'];
 		$loginMemberInfo['passwd'] = $_POST['password'];
-		$result = $this->StartModel->login($loginMemberInfo);
+		$start_model = $this->loadModel('startModel');
+		$result = $start_model->login($loginMemberInfo);
+
 		if( $result == false ) {
 			// 로그인 실패
 			header("Location: /start/index/");
 		} else {
 			// 로그인 성공
-			$_SESSION['login_idx'] = $result->m_idx;
-			$_SESSION['login_nickname'] = $result->m_nickname;
+			$_SESSION['login_idx'] = $result['m_idx'];
+			$_SESSION['login_nickname'] = $result['m_nickname'];
 
-			// $profileInfo = $result->getMemberProfileInfo($_SESSION['login_idx']);
+			$profileInfo = $start_model->getMemberProfileInfo($_SESSION['login_idx']);
 			$_SESSION['login_profileThumbName'] = $profileInfo->m_profileThumbName;
 			$_SESSION['login_profileThumbExt'] = $profileInfo->m_profileThumbExt;
 

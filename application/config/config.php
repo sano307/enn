@@ -325,8 +325,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-//32글자의 세션
-$config['encryption_key'] = 'asadfkjl23j99#sdakfsnadsadfk.</.';
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -382,7 +381,6 @@ $config['encryption_key'] = 'asadfkjl23j99#sdakfsnadsadfk.</.';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_use_database'] = FALSE;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;

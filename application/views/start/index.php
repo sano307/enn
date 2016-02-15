@@ -36,19 +36,21 @@
 
 <!-- 로그인start -->
 <div class="row">
-  <div class="medium-6 medium-centered large-3 large-centered columns">
-    <form id="login_form" data-parsley-validate="" action="<?php echo URL; ?>start/login" method="POST">
-      <div class="row column login_join_from">
-        <label>Email
-          <input type="email" name="email" placeholder="somebody@example.com" required>
-        </label>
-        <label>Password
-          <input type="password" name="password" placeholder="Password" required>
-        </label>
-        <p><input type="submit" value="Login" class="button expanded"></p>
-      </div>
-    </form>
-  </div>
+<div class="medium-6 medium-centered large-3 large-centered columns">
+
+  <form id="login_form" data-parsley-validate="" action="<?php echo URL; ?>start/login" method="POST">
+    <div class="row column login_join_from">
+      <label>Email
+        <input type="email" name="email" placeholder="somebody@example.com" required>
+      </label>
+      <label>Password
+        <input type="password" name="password" placeholder="Password" required>
+      </label>
+      <p><input type="submit" value="Login" class="button expanded"></p>
+    </div>
+  </form>
+
+</div>
 </div>
 <!-- 로그인end -->
 <!-- 회원가입start -->
