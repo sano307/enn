@@ -1,12 +1,8 @@
 <?php
-class campModel {
-    function __construct($db) {
-        try {
-            $this -> db = $db;
-        } catch (PDOException $e) {
-            exit('데이터베이스 연결에 오류가 발생했습니다.');
-        }
-    }
+class campModel extends CI_Model{
+  function __construct() {
+      parent::__construct();
+  }
 
 
     function camp_my($c_idx){ //select m.m_idx, m.c_idx, c.c_campName, c.c_campImgName, c.c_campImgExt from camp c,camp_member m where m.c_idx = c.c_idx and m.m_idx = 17;
@@ -82,8 +78,9 @@ class campModel {
 
     public function getMainGroupRecommend(){
         $sql = "select * from camp order by c_idx desc limit 5";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();
+        // $query = $this->db->prepare($sql);
+        // $query->execute();
+        // return $query->fetchAll();
+        return $this->db->query($sql)->row();
     }
 }

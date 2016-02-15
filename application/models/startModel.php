@@ -1,12 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class StartModel extends CI_Controller{
-    function __construct( $db ) {
-        try {
-            $this->db = $db;
-        } catch (PDOException $e) {
-            exit('데이터베이스 연결에 오류가 발생했습니다.');
-        }
+class Startmodel extends CI_Model{
+    function __construct() {
+        parent::__construct();
     }
 
     public function getRegionOfNation( $selectedNation ) {
@@ -27,10 +23,11 @@ class StartModel extends CI_Controller{
     function login( $argLoginMemberInfo ) {
         $memberID = strip_tags($argLoginMemberInfo['id']);
         $memberPasswd = strip_tags($argLoginMemberInfo['passwd']);
-        $sql="SELECT m_idx, m_nickname FROM member WHERE m_memberID=:login_email&&m_memberPasswd=:login_password";
-        $query=$this->db->prepare( $sql );
-        $query->execute(array('login_email'=>$memberID,'login_password'=>$memberPasswd));
-        return $query->fetch(PDO::FETCH_ASSOC);
+        $sql="SELECT m_idx, m_nickname FROM member WHERE m_memberID='$memberID'&&m_memberPasswd='$memberPasswd'";
+        // $query=$this->db->prepare( $sql );
+        // $query->execute(array('login_email'=>$memberID,'login_password'=>$memberPasswd));
+        // return $query->fetch(PDO::FETCH_ASSOC);
+        return $this->db->query($sql)->row();
     }
 
     public function getMemberProfileInfo( $m_idx ) {

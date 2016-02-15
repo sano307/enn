@@ -30,6 +30,7 @@
             <div class="row">
               <?php
                   foreach ( $getBuddyRecommend as $row ){
+
                ?>
                   <div class="small-4 columns">
                     <div class="image-wrapper overlay-fade-in">
