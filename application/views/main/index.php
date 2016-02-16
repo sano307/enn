@@ -2,6 +2,7 @@
 <link rel='stylesheet' href='<?php echo URL;?>/public/css/main/grouprecommend.css'>
 <link rel='stylesheet' href='<?php echo URL;?>/public/css/main/notice.css'>
 <script src="<?php echo URL;?>/public/js/postwrite.js"></script>
+
 <!-- 공지사항 -->
 <div class="row">
   <div class="small-6 small-centered columns">
@@ -22,7 +23,6 @@
   </div>
 </div>
 <!-- 공지사항 끝 -->
-
 <div class="row">
     <div class="large-12 columns">
         <div class="panel">

@@ -1,15 +1,9 @@
 <?php
 
-class BuddyModel {
-    function __construct($db)
-    {
-        try {
-            $this -> db = $db;
-        } catch(PDOException $e) {
-            exit('데이터베이스 연결에 오류가 발생했습니다.');
-        }
-    }
-
+class BuddyModel extends CI_Model{
+  function __construct() {
+      parent::__construct();
+  }
     // 친구 목록
     public function getBuddyList( $argLoginMemberNum, $argRequestedMember ) {
     $acceptedMemberNum = (int)$argLoginMemberNum;
@@ -102,9 +96,10 @@ class BuddyModel {
     public function getMainBuddyRecommend() {
 
         $sql = "select * from member order by m_idx desc limit 3";
-        $query = $this -> db -> prepare($sql);
-        $query -> execute();
-        return $query -> fetchAll();
+        // $query = $this -> db -> prepare($sql);
+        // $query -> execute();
+        // return $query -> fetchAll();
+        return $this->db->query($sql)->result();
     }
 
     public function IsBuddyCheck( $requestedInfo, $acceptedInfo ) {
