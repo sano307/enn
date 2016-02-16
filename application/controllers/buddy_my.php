@@ -18,7 +18,7 @@ class Buddy_my extends CI_Controller {
 		$recommendBuddyList = $this->buddyModel->getRecommendBuddyList($searchValue);
 
 		$this->load->view('../views/_templates/header.php');
-		$this->load->view('../views/buddy_my/index.php');
+		$this->load->view('../views/buddy_my/index.php', array('buddy_list'=>$buddy_list, 'recommendBuddyList'=>$recommendBuddyList));
 		$this->load->view('../views/_templates/footer.php');
 	}
 
@@ -66,7 +66,7 @@ class Buddy_my extends CI_Controller {
 			echo "<script>location.replace('/buddy_my/request')</script>";
 		} else {
 			$this->load->view('../views/_templates/header.php');
-			$this->load->view('../views/buddy_my/request.php');
+			$this->load->view('../views/buddy_my/request.php',array('buddy_RequestList'=>$buddy_RequestList) );
 			$this->load->view('../views/_templates/footer.php');
 		}
 	}
@@ -96,7 +96,7 @@ class Buddy_my extends CI_Controller {
 		}
 
 		$this->load->view('../views/_templates/header.php');
-		$this->load->view('../views/buddy_my/search.php');
+		$this->load->view('../views/buddy_my/search.php', array('buddy_SearchList'=>$buddy_SearchList));
 		$this->load->view('../views/_templates/footer.php');
 	}
 }
