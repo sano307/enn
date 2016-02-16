@@ -1,6 +1,6 @@
 <?php
 
-class master extends Controller {
+class master extends CI_Controller {
 	public function index() {
 		$master_model = $this -> loadModel('masterModel');
 		$master_notice = $master_model -> masterNoticeList();

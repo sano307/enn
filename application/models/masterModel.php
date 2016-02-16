@@ -1,12 +1,9 @@
 <?php
 
-class masterModel {
+class masterModel  extends CI_Model{
     function __construct($db) {
-        try {
-            $this -> db = $db;
-        } catch (PDOException $e) {
-            exit('데이터베이스 연결에 오류가 발생했습니다.');
-        }
+        parent::__construct();
+
     }
 
     public function memberSearchList( $argValue ) {
