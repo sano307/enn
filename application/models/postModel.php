@@ -12,9 +12,10 @@ class postModel extends CI_Model{
         $argPostThumbExt = strip_tags($argPostThumbInfo['ext']);
 
         $sql = "SELECT m_idx FROM member WHERE m_nickname = '$argPostWriter'";
-        $query = $this->db->prepare( $sql );
-        $query->execute();
-        $argPostWriterNum = $query->fetchColumn(0);
+        // $query = $this->db->prepare( $sql );
+        // $query->execute();
+        // $argPostWriterNum = $query->fetchColumn(0);
+        $this->db->query($sql);
 
         $sql = "INSERT INTO post (m_idx,c_idx, p_content, p_registedTime, p_postThumbName, p_postThumbExt, p_postHits, p_postGoods) VALUES (:m_idx,:c_idx, :p_content, :p_registedTime, :p_postThumbName, :p_postThumbExt, :p_postHits, :p_postGoods)";
         $query = $this->db->prepare( $sql );
@@ -35,11 +36,11 @@ class postModel extends CI_Model{
     public function getMemberPostInfo( $argPostWriterm_idx ) {
         $argPostWriterNum = $argPostWriterm_idx;
 
-        $sql = "SELECT p_idx, c_idx, p_postThumbName, p_postThumbExt, p_postHits, p_postGoods FROM post WHERE m_idx = {$argPostWriterNum}"."  order by p_idx desc limit 7";
+        $sql = "SELECT * FROM post WHERE m_idx = {$argPostWriterNum}"."  order by p_idx desc limit 7";
         // $query = $this->db->prepare( $sql );
         // $query->execute();
         // return $query->fetchAll(PDO::FETCH_ASSOC);
-        return $this->db->query($sql)->row();
+        return $this->db->query($sql)->result();
     }
 
 

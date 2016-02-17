@@ -29,7 +29,7 @@ home.controller('loginController', ['$scope', '$location', '$routeParams', '$htt
         }).success(function(data, status, headers, config) {
             if ( data.msg === 'success' ) {
                 $window.alert('login Success');
-                $window.location.href = '/home';
+                $window.location.href = '/main';
             } else {
                 $window.alert('login Failed');
                 $scope.loginData.passwd = '';

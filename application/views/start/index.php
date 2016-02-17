@@ -1,3 +1,4 @@
+<?php var_dump($_SESSION); ?>
 <html lang="en" ng-app="home">
 <head>
     <meta charset="UTF-8">

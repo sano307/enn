@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<?php
+var_dump($_SESSION);
+?>
 <html lang="en">
 <head>
    <meta charset = "utf-8">
    <meta http-equiv="X-UV-Compatible" content="IE=edge">
    <title> 한일 소통 SNS - 緣(Enn)SNS</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- foundation -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URL; ?>/foundation/css/normalize.css">
@@ -15,9 +18,8 @@
     <!-- foundation top css -->
     <link rel="stylesheet" href="<?php echo URL; ?>/public/css/topmenu_foundation.css">
     <!-- end of foundation top css -->
-<head>
+</head>
 <body>
-
   <nav class="top-bar" data-topbar>
     <!-- 사용자 프로필 이미지 -->
         <ul class="title-area">
@@ -45,8 +47,19 @@
         <li class="divider"></li>
         <li><a href="/templates/logout"><i class="fi-x"></i></a></li>
         <li class="divider"></li>
+        <li><a class="right-off-canvas-toggle menu-icon" ><span>buddy</span></a></li>
       </ul>
     </section>
     <!-- 탑메뉴 끝  -->
-
   </nav>
+
+  <div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <aside class="right-off-canvas-menu">
+      친구1<br>
+      친구2
+
+      </aside>
+
+      <section class="main-section">
+        <a class="exit-off-canvas"></a>

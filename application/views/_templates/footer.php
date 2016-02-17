@@ -1,3 +1,8 @@
+<!-- 유저목록끝의 시작 -->
+    </section>
+  </div>
+</div>
+<!-- 유저 목록끝의 끝-->
 
 </body>
 
@@ -18,16 +23,6 @@
 						<div class="row">
 							<div class="large-5 columns">
 									<p>&copy; Copyright 緣SNS All rights reserved.</p>
-							</div>
-							<div class="large-7 columns">
-									<ul class="inline-list right">
-											<li><a href="#">Section 1</a></li>
-											<li><a href="#">Section 2</a></li>
-											<li><a href="#">Section 3</a></li>
-											<li><a href="#">Section 4</a></li>
-											<li><a href="#">Section 5</a></li>
-											<li><a href="#">Section 6</a></li>
-									</ul>
 							</div>
 						</div>
 				</div>
