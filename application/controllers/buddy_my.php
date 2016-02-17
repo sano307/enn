@@ -96,7 +96,7 @@ class Buddy_my extends CI_Controller {
 		}
 
 		$this->load->view('../views/_templates/header.php');
-		$this->load->view('../views/buddy_my/search.php', array('buddy_SearchList'=>$buddy_SearchList));
+		$this->load->view('../views/buddy_my/search.php', isset($buddy_SearchList) ? array('buddy_SearchList'=>$buddy_SearchList) : null);
 		$this->load->view('../views/_templates/footer.php');
 	}
 }
