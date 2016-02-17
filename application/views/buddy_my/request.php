@@ -1,6 +1,6 @@
 <a href='<?= URL; ?>buddy_my/index?m_idx=<?=$_SESSION['login_idx']?>'>나의친구</a> <a href='<?= URL; ?>buddy_my/request?m_idx=<?= @$_SESSION['login_idx']?>'>친구신청</a><br>
-<h3>나에게 온 친구신청</h3>
-
+<h3>나에게 온 친구신청</h3><br>
+<?php if(!$buddy_RequestList) echo "신청목록이 없습니다."; ?>
 <table>
     <?php foreach($buddy_RequestList as $row) { ?>
         <tr>
