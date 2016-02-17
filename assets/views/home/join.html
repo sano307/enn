@@ -1,0 +1,95 @@
+<div id="login" ng-controller="joinController">
+    <div class="section-container tabs" data-section="tabs">
+        <section>
+            <p id="login_title" data-section-title><a href="#">Join</a></p>
+            <div id="login_info" data-section-content><p>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div id="loing_panel" style="color: black;"><p class="welcome">Welcome!</p>
+                <form name="joinForm" ng-submit="toJoin()" novalidate>
+                    <div class="row collapse">
+                        <div class="small-2 columns">
+                            <span class="prefix"><i class="step fi-mail size-60"></i></span>
+                        </div>
+                        <div class="small-10 columns">
+                            <div id="id_join" class="join_group" ng-class="{'has-error': joinForm.email.$invalid && !joinForm.email.$pristine }">
+                                <input type="email" name="email" placeholder="Email" ng-model="joinData.email" required>
+                                <p ng-show="joinForm.email.$invalid && !joinForm.email.$pristine">You email is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="small-2 columns ">
+                            <span class="prefix"><i class="step fi-lock size-60"></i></span>
+                        </div>
+                        <div class="small-10 columns ">
+                            <div id="passwd_join" class="join_group">
+                                <input type="password" name="passwd" placeholder="Password" ng-model="joinData.passwd" ng-minlength="8" ng-maxlength="20" required>
+                                <p ng-show="joinForm.passwd.$error.minlength" class="help-block">password is too short.</p>
+                                <p ng-show="joinForm.passwd.$error.maxlength" class="help-block">password is too long.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="small-2 columns">
+                            <span class="prefix"><i class="step fi-torso-business size-12"></i></span>
+                        </div>
+                        <div class="small-10 columns">
+                            <div id="nickname_join" class="join_group" ng-class="{'has-error': errorNickname}">
+                                <input type="text" name="nickname" placeholder="Nickname" ng-model="joinData.nickname" ng-minlength="5" ng-maxlength="30" required>
+                                <p ng-show="joinForm.nickname.$error.minlength" class="help-block">nickname is too short.</p>
+                                <p ng-show="joinForm.nickname.$error.maxlength" class="help-block">nickname is too long.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="small-2 columns">
+                            <span class="prefix"><i class="step fi-male-female size-12"></i></span>
+                        </div>
+                        <div class="small-10 columns" style="color: black;">
+                            <div id="sex_join" class="join_group" ng-class="{'has-error': errorSex}">
+                                <input type="radio" name="sex" value="m" ng-model="joinData.sex" required>Male
+                                <input type="radio" name="sex" value="f" ng-model="joinData.sex">Female
+                                <p ng-show="joinForm.sex.$invalid">You sex is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="small-2 columns">
+                            <span class="prefix"><i class="step fi-web size-12"></i></span>
+                        </div>
+                        <div class="small-10 columns">
+                            <select ng-options="country.name for country in countriesInfo.countries track by country.key"
+                                    ng-model="countriesInfo.selectedCountry"
+                                    ng-change="changeCountry(countriesInfo.selectedCountry)">
+                                <option value="">Country</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row collapse">
+                        <div class="small-2 columns">
+                            <span class="prefix"><i class="step fi-foot size-12"></i></span>
+                        </div>
+                        <div class="small-10 columns">
+                            <select ng-options="region.name for region in regionInfo.regions track by region.key"
+                                    ng-model="regionInfo.selectedRegion"
+                                    ng-change="changeRegion(regionInfo.selectedRegion)">
+                                <option value="">Region</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="small-11 small-centered columns">
+                    <div class="choose">
+                        <label>Your Choose</label>
+                        <a class="inside" ng-click="home()" role="button">Home</a>
+                        <a class="inside" ng-click="toJoin()" role="button" ng-disabled="joinForm.$invalid">Join</a>
+                    </div>
+                </div>
+                <p><span>joinData : {{joinData}}</span></p>
+                <p><span>country : {{countriesInfo.selectedCountry.key}}</span></p>
+                <p><span>region : {{regionInfo.selectedRegion.key}}</span></p>
+            </div>
+        </section>
+    </div>
+</div>
