@@ -11,14 +11,15 @@
                    <link rel="stylesheet" href="<?php echo URL;?>/foundation/css/foundation.css">
                    <link rel="stylesheet" href="<?php echo URL;?>/foundation/css/app.css">
                    <script src="<?php echo URL;?>/foundation/js/vendor/modernizr.js"></script>
+
            <!-- 기본 파운데이션(foundation) 첨부 끝 -->
+
 
            <!-- 파운데이션 탑메뉴 css -->
                    <link rel="stylesheet" href="<?php echo URL;?>/public/css/topmenu_foundation.css">
            <!-- 파운데이션 탑메뉴 css 끝 -->
 <head>
 <body>
-
   <nav class="top-bar" data-topbar>
     <!-- 사용자 프로필 이미지 -->
         <ul class="title-area">
@@ -59,8 +60,19 @@
         <li class="divider"></li>
         <li><a href="/templates/logout"><i class="fi-x"></i></a></li>
         <li class="divider"></li>
+        <li><a class="right-off-canvas-toggle menu-icon" ><span>buddy</span></a></li>
       </ul>
     </section>
     <!-- 탑메뉴 끝  -->
-
   </nav>
+
+  <div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <aside class="right-off-canvas-menu">
+      친구1<br>
+      친구2
+
+      </aside>
+
+      <section class="main-section">
+        <a class="exit-off-canvas"></a>
