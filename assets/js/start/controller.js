@@ -1,6 +1,6 @@
 home.controller('indexController', ['$scope', '$location', '$routeParams', '$http', function( $scope, $location, $routeParams, $http ) {
     $scope.effect = 'fade';
-    $scope.pageClass = 'home';
+    $scope.pageClass = 'start';
 
     $scope.login = function() {
         $location.path("/login");
@@ -15,21 +15,21 @@ home.controller('loginController', ['$scope', '$location', '$routeParams', '$htt
     $scope.effect = 'slidedown';
     $scope.pageClass = 'login';
 
-    $scope.home = function() {
-        $location.path("/home");
+    $scope.start = function() {
+        $location.path("/start");
     };
 
     $scope.toLogin = function() {
         console.log($scope.loginData);
         $http({
             method: 'post',
-            url: '/home/toLogin',
+            url: '/start/toLogin',
             data: {'loginData': $scope.loginData},
             headers: {'Content-Type': 'application/json; charset=utf-8'}
         }).success(function(data, status, headers, config) {
             if ( data.msg === 'success' ) {
                 $window.alert('login Success');
-                $window.location.href = '/main';
+                $window.location.href = '/home';
             } else {
                 $window.alert('login Failed');
                 $scope.loginData.passwd = '';
@@ -44,8 +44,8 @@ home.controller('joinController', ['$scope', '$location', '$routeParams', '$http
     $scope.effect = 'slidedown';
     $scope.pageClass = 'join';
 
-    $scope.home = function() {
-        $location.path("/home");
+    $scope.start = function() {
+        $location.path("/start");
     };
 
     $scope.countriesInfo = {
@@ -62,26 +62,13 @@ home.controller('joinController', ['$scope', '$location', '$routeParams', '$http
         ], selectedRegion: {key: '', name: 'Region'}
     };
 
-    $scope.IsEmail = function( email ) {
-        $http({
-            method: 'post',
-            url: '/home/IsEmail',
-            data: {'email': email},
-            headers: {'Content-Type': 'application/json; charset=utf-8'}
-        }).success(function(data, status, headers, config) {
-            console.log(data);
-        }).error(function(data, status, headers, config) {
-            console.log(data);
-        });
-    };
-
     $scope.changeCountry = function( selectedCountry ) {
         $scope.countriesInfo.selectedCountry = {key: selectedCountry.key, name:selectedCountry.name};
 
         // 선택된 국가에 속하는 지역들을 뽑아온다.
         $http({
             method: 'post',
-            url: '/home/getRegion',
+            url: '/start/getRegion',
             data: {'country': selectedCountry.key},
             headers: {'Content-Type': 'application/json; charset=utf-8'}
         }).success(function(data, status, headers, config) {
@@ -120,11 +107,10 @@ home.controller('joinController', ['$scope', '$location', '$routeParams', '$http
     $scope.toJoin = function() {
         $scope.joinData.country = $scope.countriesInfo.selectedCountry.key;
         $scope.joinData.region = $scope.regionInfo.selectedRegion.key;
-        console.log($scope.joinData);
 
         $http({
             method: 'post',
-            url: '/home/toJoin',
+            url: '/start/toJoin',
             data: {'joinData': $scope.joinData},
             headers: {'Content-Type': 'application/json; charset=utf-8'}
         }).success(function (data, status, headers, config) {

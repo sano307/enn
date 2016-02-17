@@ -80,7 +80,6 @@ class BuddyModel extends CI_Model {
 
     // main페이지 새로운 친구 3명 출력
     public function getMainBuddyRecommend() {
-
         $sql = "select * from member order by m_idx desc limit 3";
         return $this->db->query($sql)->result();
     }

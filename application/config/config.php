@@ -6,7 +6,7 @@ define('URL','http://127.0.0.1/');
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'mymvc');
+define('DB_NAME', 'Enn');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 session_start();
@@ -34,7 +34,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'localhost';
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
+$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,7 @@ $config['base_url'] = 'localhost';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'start/index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +65,7 @@ $config['index_page'] = 'start/index.php';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= 'AUTO';
 
 /*
 |--------------------------------------------------------------------------

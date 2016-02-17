@@ -16,6 +16,7 @@ class Test extends CI_Controller {
     public function getRegion( $country ) {
         $nowCountry = $country;
         $result = $this->home_model->getRegion($nowCountry);
+        var_dump($result[0]->nri_region);
 
         $arr = [];
         $iCount = 0;

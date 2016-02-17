@@ -5,17 +5,16 @@
    <meta http-equiv="X-UV-Compatible" content="IE=edge">
    <title> 한일 소통 SNS - 緣(Enn)SNS</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
-           <!-- 기본 파운데이션(foundation) 첨부-->
-                   <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
-                   <link rel="stylesheet" href="<?php echo URL;?>/foundation/css/normalize.css">
-                   <link rel="stylesheet" href="<?php echo URL;?>/foundation/css/foundation.css">
-                   <link rel="stylesheet" href="<?php echo URL;?>/foundation/css/app.css">
-                   <script src="<?php echo URL;?>/foundation/js/vendor/modernizr.js"></script>
-           <!-- 기본 파운데이션(foundation) 첨부 끝 -->
+    <!-- foundation -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo URL; ?>/foundation/css/normalize.css">
+    <link rel="stylesheet" href="<?php echo URL; ?>/foundation/css/foundation.css">
+    <script src="<?php echo URL; ?>/foundation/js/vendor/modernizr.js"></script>
+    <!-- end of foundation -->
 
-           <!-- 파운데이션 탑메뉴 css -->
-                   <link rel="stylesheet" href="<?php echo URL;?>/public/css/topmenu_foundation.css">
-           <!-- 파운데이션 탑메뉴 css 끝 -->
+    <!-- foundation top css -->
+    <link rel="stylesheet" href="<?php echo URL; ?>/public/css/topmenu_foundation.css">
+    <!-- end of foundation top css -->
 <head>
 <body>
 
@@ -29,21 +28,8 @@
     <!-- 로고이미지 -->
     <div class="logo">
       <a href="/timeline/index/<?= $_SESSION['login_idx'] ?>">
-         <!--  -->
-        <?php
-        // 프로필 사진이 없는 경우
-            if (! $_SESSION['login_profileThumbName'] ) {
-        ?>
             <img src='/public/img/common/common_profileImg.png'>
-        <?php
-            }else{
-        // 프로필 사진이 있는 경우
-        ?>
-            <img src="/public/img/member/<?= $_SESSION['login_idx'] ?>/<?= $_SESSION['login_profileThumbName'] ?>.<?= $_SESSION['login_profileThumbExt'] ?>">
-        <?php
-            }
-        ?>
-    </a>
+        </a>
     </div>
     <!-- 로고이미지 끝 -->
 

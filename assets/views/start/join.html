@@ -2,19 +2,25 @@
     <div class="section-container tabs" data-section="tabs">
         <section>
             <p id="login_title" data-section-title><a href="#">Join</a></p>
-            <div id="login_info" data-section-content><p>
-                <div class="row">
-                    <div class="large-12 columns">
-                        <div id="loing_panel" style="color: black;"><p class="welcome">Welcome!</p>
+
+            <div id="login_info" data-section-content>
+                <p>
+                    <div class="row" style="color: black; font-weight: bold;">
+                        <div class="large-12 columns">
+                <p class="welcome">Welcome!</p>
+
                 <form name="joinForm" ng-submit="toJoin()" novalidate>
                     <div class="row collapse">
                         <div class="small-2 columns">
                             <span class="prefix"><i class="step fi-mail size-60"></i></span>
                         </div>
                         <div class="small-10 columns">
-                            <div id="id_join" class="join_group" ng-class="{'has-error': joinForm.email.$invalid && !joinForm.email.$pristine }">
+                            <div id="id_join" class="join_group"
+                                 ng-class="{'has-error': joinForm.email.$invalid && !joinForm.email.$pristine }">
                                 <input type="email" name="email" placeholder="Email" ng-model="joinData.email" required>
-                                <p ng-show="joinForm.email.$invalid && !joinForm.email.$pristine">You email is required.</p>
+
+                                <p ng-show="joinForm.email.$invalid && !joinForm.email.$pristine">You email is
+                                    required.</p>
                             </div>
                         </div>
                     </div>
@@ -24,9 +30,14 @@
                         </div>
                         <div class="small-10 columns ">
                             <div id="passwd_join" class="join_group">
-                                <input type="password" name="passwd" placeholder="Password" ng-model="joinData.passwd" ng-minlength="8" ng-maxlength="20" required>
-                                <p ng-show="joinForm.passwd.$error.minlength" class="help-block">password is too short.</p>
-                                <p ng-show="joinForm.passwd.$error.maxlength" class="help-block">password is too long.</p>
+                                <input type="password" name="passwd" placeholder="Password" ng-model="joinData.passwd"
+                                       ng-minlength="8" ng-maxlength="20" required>
+
+                                <p ng-show="joinForm.passwd.$error.minlength" class="help-block">password is too
+                                    short.</p>
+
+                                <p ng-show="joinForm.passwd.$error.maxlength" class="help-block">password is too
+                                    long.</p>
                             </div>
                         </div>
                     </div>
@@ -36,9 +47,14 @@
                         </div>
                         <div class="small-10 columns">
                             <div id="nickname_join" class="join_group" ng-class="{'has-error': errorNickname}">
-                                <input type="text" name="nickname" placeholder="Nickname" ng-model="joinData.nickname" ng-minlength="5" ng-maxlength="30" required>
-                                <p ng-show="joinForm.nickname.$error.minlength" class="help-block">nickname is too short.</p>
-                                <p ng-show="joinForm.nickname.$error.maxlength" class="help-block">nickname is too long.</p>
+                                <input type="text" name="nickname" placeholder="Nickname" ng-model="joinData.nickname"
+                                       ng-minlength="5" ng-maxlength="30" required>
+
+                                <p ng-show="joinForm.nickname.$error.minlength" class="help-block">nickname is too
+                                    short.</p>
+
+                                <p ng-show="joinForm.nickname.$error.maxlength" class="help-block">nickname is too
+                                    long.</p>
                             </div>
                         </div>
                     </div>
@@ -82,12 +98,14 @@
                 <div class="small-11 small-centered columns">
                     <div class="choose">
                         <label>Your Choose</label>
-                        <a class="inside" ng-click="home()" role="button">Home</a>
+                        <a class="inside" ng-click="start()" role="button">Home</a>
                         <a class="inside" ng-click="toJoin()" role="button" ng-disabled="joinForm.$invalid">Join</a>
                     </div>
                 </div>
                 <p><span>joinData : {{joinData}}</span></p>
+
                 <p><span>country : {{countriesInfo.selectedCountry.key}}</span></p>
+
                 <p><span>region : {{regionInfo.selectedRegion.key}}</span></p>
             </div>
         </section>
