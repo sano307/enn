@@ -1,51 +1,18 @@
-home.controller('indexController', ['$scope', '$location', '$routeParams', '$http', function( $scope, $location, $routeParams, $http ) {
-    $scope.effect = 'pop';
-    $scope.pageClass = 'start';
+camp.controller('indexController', ['$scope', '$location', '$routeParams', '$http', function( $scope, $location, $routeParams, $http ) {
+    $scope.effect = 'slideleft';
+    $scope.pageClass = 'camp';
 
-    $scope.login = function() {
-        $location.path("/login");
-    };
-
-    $scope.join = function() {
-        $location.path("/join");
+    $scope.create = function() {
+        $location.path('/camp/create');
     };
 }]);
 
-home.controller('loginController', ['$scope', '$location', '$routeParams', '$http', '$window', function( $scope, $location, $routeParams, $http, $window ) {
-    $scope.effect = 'slidedown';
-    $scope.pageClass = 'login';
+camp.controller('createController', ['$scope', '$location', '$routeParams', '$http', '$window', function( $scope, $location, $routeParams, $http, $window ) {
+    $scope.effect = 'slideleft';
+    $scope.pageClass = 'campCreate';
 
-    $scope.start = function() {
-        $location.path("/start");
-    };
+    $scope.camp = function() {
 
-    $scope.toLogin = function() {
-        console.log($scope.loginData);
-        $http({
-            method: 'post',
-            url: '/start/toLogin',
-            data: {'loginData': $scope.loginData},
-            headers: {'Content-Type': 'application/json; charset=utf-8'}
-        }).success(function(data, status, headers, config) {
-            if ( data.msg === 'success' ) {
-                $window.alert('login Success');
-                $window.location.href = '/main';
-            } else {
-                $window.alert('login Failed');
-                $scope.loginData.passwd = '';
-            }
-        }).error(function(data, status, headers, config) {
-            console.log(data);
-        });
-    };
-}]);
-
-home.controller('joinController', ['$scope', '$location', '$routeParams', '$http', '$window', function( $scope, $location, $routeParams, $http, $window ) {
-    $scope.effect = 'slidedown';
-    $scope.pageClass = 'join';
-
-    $scope.start = function() {
-        $location.path("/start");
     };
 
     $scope.countriesInfo = {
@@ -104,21 +71,20 @@ home.controller('joinController', ['$scope', '$location', '$routeParams', '$http
         $scope.regionInfo.selectedRegion = {key: selectedRegion.key, name: selectedRegion.name};
     };
 
-    $scope.toJoin = function() {
-        $scope.joinData.country = $scope.countriesInfo.selectedCountry.key;
-        $scope.joinData.region = $scope.regionInfo.selectedRegion.key;
+    $scope.toCreate = function() {
+        $scope.campData.country = $scope.countriesInfo.selectedCountry.key;
+        $scope.campData.region = $scope.regionInfo.selectedRegion.key;
 
         $http({
             method: 'post',
-            url: '/start/toJoin',
-            data: {'joinData': $scope.joinData},
+            url: '/camp/toCreate',
+            data: {'campData': $scope.campData},
             headers: {'Content-Type': 'application/json; charset=utf-8'}
         }).success(function (data, status, headers, config) {
             console.log(data.msg);
             switch (data.msg) {
-                case 'success': $window.alert("Join Success"); $location.path('/login'); break;
-                case 'alreadyID': $window.alert("The Email that is already registered"); break;
-                case 'alreadyNickname': $window.alert("The Nickname that is already registered"); break;
+                case 'success': $window.alert("Camp Create Success"); $location.path('/camp'); break;
+                case 'alreadyCampname': $window.alert("The Campname that is already registered"); break;
                 case 'failed': $window.alert("Join Failed"); break;
             }
         }).error(function (data, status, headers, config) {

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>foundation-icons/foundation-icons.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/start/index.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/start/choose.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/public/page_transition.css" type="text/css" />
     <style>
         .ng-valid       {  }
         .ng-invalid     {  }

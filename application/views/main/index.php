@@ -5,8 +5,7 @@
 <!-- 공지사항 -->
 <div class="row">
     <div class="small-6 small-centered columns">
-
-        <div data-alert class="alert-box info">
+<!--        <div data-alert class="alert-box info">
             <strong>Oops</strong> - The most dreadful word in nuclear physics.
             <a href="#" class="close">&times;</a>
         </div>
@@ -17,8 +16,7 @@
         <div data-alert class="alert-box success">
             <strong>Yay!</strong> - You accomplished a simple task!
             <a href="#" class="close">&times;</a>
-        </div>
-
+        </div>-->
     </div>
 </div>
 <!-- 공지사항 끝 -->

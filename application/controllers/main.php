@@ -22,4 +22,20 @@ class Main extends CI_Controller {
 																			 	'getGroupRecommend'=>$getGroupRecommend));
 		$this->load->view('_templates/footer');
 	}
+
+	public function getBuddy() {
+		$this->load->model('buddyModel');
+
+		$id = json_decode($this->input->post('id'));
+
+		$result = $this->buddyModel->getMyBuddyNickname($id);
+
+		$buddyList = [];
+		foreach ( $result as $row ) {
+			$temp = $this->buddyModel->getMyBuddyInfo($row->b_requestedMember);
+			$buddyList = array_merge($buddyList, $temp);
+		}
+
+		echo json_encode($buddyList);
+	}
 }

@@ -1,4 +1,4 @@
-home.directive('backAnimation', ['$browser', '$location', function( $browser, $location ) {
+camp.directive('backAnimation', ['$browser', '$location', function( $browser, $location ) {
     return {
         link: function( scope, element ) {
             $browser.onUrlChange( function( newUrl ) {
@@ -16,7 +16,7 @@ home.directive('backAnimation', ['$browser', '$location', function( $browser, $l
                 if ( newCount !== oldCount && newCount === 1 ) {
                     element.removeClass('reverse');
                 }
-            })
+            });
         }
     }
 }]);
