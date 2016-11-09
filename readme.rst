@@ -50,7 +50,7 @@ assets
 lib
 nodejs
 public
-  img
-    camp
-    member
+　img
+　camp
+　　member
 .htaccess
