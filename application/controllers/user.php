@@ -1,5 +1,13 @@
 <?php
-class user extends Controller{
+class User extends CI_Controller{
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+		$this->load->model('userModel');
+		$this->load->model('memberModel');
+	}
+
 	public function index() {
 
 	}
@@ -12,8 +20,7 @@ class user extends Controller{
 		$data = [];
 		$sent_data = new stdClass();
 
-		$user_model = $this->loadModel('userModel');
-		$result = $user_model->IsNickname( $inputNickname );
+		$result = $this->userModel->IsNickname( $inputNickname );
 		if ( !$result ) {
 			$sent_data->result = true;
 		} else {
@@ -27,21 +34,19 @@ class user extends Controller{
 	}
 
 	public function profile_edit() {
-		$user_model = $this->loadModel('userModel');
-		$memberInfo = $user_model->getLoginMemberInfo($_SESSION['login_idx']);
+		$memberInfo = $this->userModel->getLoginMemberInfo($_SESSION['login_idx']);
 
-		require 'application/views/_templates/header.php';
-		require 'application/views/user/profileedit.php';
-		require 'application/views/_templates/footer.php';
+		$this->load->view('_templates/header');
+		$this->load->view('user/profileedit', array('memberInfo' => $memberInfo));
+		$this->load->view('_templates/footer');
 	}
 
 	public function profile_delete() {
-		$member_model = $this->loadModel('memberModel');
-		$member_list = $member_model->deleteMember($_SESSION['logining_idx']);
-		session_destroy();
-		require 'application/views/_templates/header.php';
-		require 'application/views/start/index.php';
-		require 'application/views/_templates/footer.php';
+		$member_list = $this->memberModel->deleteMember($_SESSION['logining_idx']);
+		/*session_destroy();*/
+		$this->load->view('_templates/header');
+		$this->load->view('start/index', array('member_list' => $member_list));
+		$this->load->view('_templates/footer');
 	}
 
 	public function profile_update() {
@@ -55,7 +60,6 @@ class user extends Controller{
 		$saveFolderPath = "public/img/member/" . $saveFolderName . "/";      // 이미지가 저장되는 폴더 경로
 		$memberInfoUpdateTimeInfo = date("Ymd_His", time());                 // 회원 정보가 수정된 시간
 
-		$member_model = $this->loadModel('memberModel');
 		if ( $profileImg['error'] != 4 ) {
 			// 파일을 전송했을 경우
 			if ( $profileImg['error'] == 0 ) {
@@ -88,7 +92,7 @@ class user extends Controller{
                 $temp = $profileImgInfo['saveFolderPath'] . $profileImgInfo['name'] . "." . $profileImgInfo['ext'];
 				unlink($temp);
 
-				$profileImgInfo_previous = $member_model->getPreviousProfileInfo($memberInfo['idx']);
+				$profileImgInfo_previous = $this->memberModel->getPreviousProfileInfo($memberInfo['idx']);
 				$beforeProfileImg = $profileImgInfo_previous['m_profileImgName'] . "." . $profileImgInfo_previous['m_profileImgExt'];
 				$beforeProfileThumb = $profileImgInfo_previous['m_profileThumbName'] . "." . $profileImgInfo_previous['m_profileThumbExt'];
 				$beforeProfileImgPath = $profileImgInfo['saveFolderPath'] . $beforeProfileImg;
@@ -96,7 +100,7 @@ class user extends Controller{
 				unlink($beforeProfileImgPath);
 				unlink($beforeProfileThumbPath);
 
-				$member_model->updateMemberInfo_ProfileImage($memberInfo, $memberProfileInfo, $memberProfileThumbInfo);
+				$this->memberModel->updateMemberInfo_ProfileImage($memberInfo, $memberProfileInfo, $memberProfileThumbInfo);
 				$_SESSION['login_profileThumbName'] = $memberProfileThumbInfo['name'];
 				$_SESSION['login_profileThumbExt'] = $memberProfileThumbInfo['ext'];
 			} else {
@@ -105,7 +109,7 @@ class user extends Controller{
 			}
 		} else {
 			// 파일을 전송하지 않았을 경우
-			$member_model->updateMemberInfo_notProfileImage($memberInfo);
+			$this->memberModel->updateMemberInfo_notProfileImage($memberInfo);
 		}
 
 		header("Location: /user/profile_edit/");

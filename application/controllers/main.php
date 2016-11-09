@@ -1,5 +1,5 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 class Main extends CI_Controller {
 	function __construct(){
 		parent::__construct();
@@ -26,13 +26,13 @@ class Main extends CI_Controller {
 	public function getBuddy() {
 		$this->load->model('buddyModel');
 
-		$id = json_decode($this->input->post('id'));
+		$m_idx = json_decode($_POST['m_idx']);
 
-		$result = $this->buddyModel->getMyBuddyNickname($id);
+		$result = $this->buddyModel->getMyBuddyIdx($m_idx);
 
 		$buddyList = [];
 		foreach ( $result as $row ) {
-			$temp = $this->buddyModel->getMyBuddyInfo($row->b_requestedMember);
+			$temp = $this->buddyModel->getMyBuddyInfo($row->b_request_m_idx);
 			$buddyList = array_merge($buddyList, $temp);
 		}
 

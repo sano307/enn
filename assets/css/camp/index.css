@@ -1,12 +1,10 @@
 #camp {
-    border: 1px solid red;
     min-width: 100%;
 }
 
 /* camp menu */
 .campMenu {
-    background: #BBDE23 no-repeat 0 0;
-    border: 1px solid red;
+
 }
 
 /* content */
@@ -20,25 +18,20 @@
 
 .content .camp {
     color: #CCC;
-    background: #BBE2F3 no-repeat 0 0;
-    background-size: cover;
     font-size: 14px;
 }
 
 .content .campCreate {
     color: #CCC;
-    background: #BBE2F3 no-repeat 0 0;
-    background-size: cover;
     font-size: 14px;
 }
 
 .content {
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     min-height: 100%;
     padding: 0;
     margin-bottom: 0;
-    border: 1px solid blue;
 }
 
 /* camp recommand */

@@ -1,6 +1,3 @@
-<?php
-var_dump($_SESSION);
-?>
 <html lang="en">
 <head>
    <meta charset = "utf-8">
@@ -10,55 +7,89 @@ var_dump($_SESSION);
 
     <!-- foundation -->
     <link rel="stylesheet" href="<?php echo URL; ?>/foundation/css/normalize.css">
-    <link rel="stylesheet" href="<?php echo URL; ?>/foundation/css/foundation.css">
-    <link rel="stylesheet" href="<?php echo URL; ?>foundation-icons/foundation-icons.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="<?php echo URL; ?>/foundation-icons/foundation-icons.css" type="text/css" />
     <!-- end of foundation -->
 
     <!-- public js -->
-    <script src="<?php echo URL; ?>foundation/js/vendor/modernizr.js"></script>
-    <script src="<?php echo URL; ?>foundation/js/vendor/jquery.js"></script>
-    <script src="<?php echo URL; ?>foundation/js/foundation.min.js"></script>
+    <script src="<?php echo URL; ?>/foundation/js/vendor/modernizr.js"></script>
+    <script src="<?php echo URL; ?>/foundation/js/vendor/jquery.js"></script>
+    <script src="<?php echo URL; ?>/foundation/js/foundation.min.js"></script>
     <!-- end of public js -->
 
     <!-- foundation top css -->
     <link rel="stylesheet" href="<?php echo URL; ?>/public/css/topmenu_foundation.css">
     <!-- end of foundation top css -->
 
+    <!-- main css -->
+    <link rel='stylesheet' href="<?php echo URL; ?>/public/css/imageHoverEffect.css">
+    <!-- end of main css -->
+
     <!-- camp css -->
-    <link rel="stylesheet" href="<?php echo URL; ?>assets/css/camp/index.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo URL; ?>assets/css/camp/choose.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo URL; ?>assets/css/public/page_transition.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/camp/index.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/camp/choose.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/public/pullout_search.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/public/switches_with_lables.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/public/drop_box.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/public/page_transition.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/public/modal_box.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/assets/css/public/ios_toggle.css" type="text/css" />
     <!-- end of camp css -->
+
+    <script>
+        var login_idx = <?= $_SESSION['login_idx']; ?>;
+        var login_nickname = '<?= $_SESSION['login_nickname']; ?>';
+    </script>
 </head>
 <body>
-  <nav class="top-bar" data-topbar>
-    <!-- 사용자 프로필 이미지 -->
-        <ul class="title-area">
-          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-        </ul>
-    <!-- 사용자 프로필 이미지  끝-->
+    <nav class="top-bar" data-topbar style="color: black;">
+      <ul class="title-area">
+        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+      <!-- top menu -->
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="center-buttons">
+            <a href="/main/index"><img src="/public/img/logoimage.png" class="logo" style="width:150px; height:57px;" /></a>
+          <?php
+              if(!$_SESSION['login_idx']){
+           ?>
+          <li class="divider"></li>
+          <li>
+            <a href="/timeline/index/<?=$_SESSION['login_idx']?>" style="text-align:center">
+              <img src='/public/img/member/<?=$_SESSION['login_idx']?>/<?=$_SESSION['login_profileThumbName']?>.<?=$_SESSION['login_profileThumbExt']?>' width='25px'>
+               Timeline
+            </a>
+          </li>
+          <?php
+              }
+              else{
+          ?>
+          <li class="divider"></li>
+          <li>
+            <a href="/timeline/index/<?=$_SESSION['login_idx']?>" style="text-align:center">
+              <img src='/public/img/common/common_profileImg_Thumb.png' width='25px' > Timeline
+            </a>
+          </li>
+          <?php
+              }
+          ?>
 
-    <!-- 로고이미지 -->
-    <div class="logo">
-      <a href="/timeline/index/<?= $_SESSION['login_idx'] ?>">
-            <img src='/public/img/common/common_profileImg.png'>
-        </a>
-    </div>
-    <!-- 로고이미지 끝 -->
+          <li class="divider"></li>
+          <li class="icon-align"><a href="/buddy_my/index" style="text-align:center"><i class="fi-male-female"></i> Buddy</a></li>
+          <li class="divider"></li>
+          <li class="icon-align"><a id="buddy" class="right-off-canvas-toggle menu-icon" style="text-align:center"><i class="fi-address-book"></i> BuddyState</a></li>
+          <li class="divider"></li>
+          <li class="icon-align"><a href="/camp" style="text-align:center"><i class="fi-social-myspace"></i> Camp</a></li>
+          <li class="divider"></li>
+          <li class="icon-align"><a href="/user/profile_edit/<?=$_SESSION['login_idx']?>" style="text-align:center"><i class="fi-wrench"></i> Setting</a></li>
+          <li class="divider"></li>
+          <li class="icon-align"><a href="/templates/logout" style="text-align:center"><i class="fi-x"></i> Logout</a></li>
+          <li class="divider"></li>
+        <li class="divider"></li>
 
-    <!-- 탑메뉴  -->
-    <section class="top-bar-section">
-      <ul class="center-buttons">
-        <li class="divider"></li>
-        <li><a href="/buddy_my/index"><i class="fi-male-female"></i></a></li>
-        <li class="divider"></li>
-        <li><a href="/camp"><i class="fi-social-myspace"></i></a></li>
-        <li class="divider"></li>
-        <li><a href="/user/profile_edit/<?=$_SESSION['login_idx']?>"><i class="fi-wrench"></i></a></li>
-        <li class="divider"></li>
-        <li><a href="/templates/logout"><i class="fi-x"></i></a></li>
-        <li class="divider"></li>
-        <li><a id="buddy" class="right-off-canvas-toggle menu-icon"><span>buddy</span></a></li>
+
           <script>
               $(document).ready(function() {
                   var buddyClick = false;
@@ -66,20 +97,20 @@ var_dump($_SESSION);
                   $("#buddy").click(function() {
                       if ( buddyClick === false ) {
                           buddyClick = true;
-                          var id = '<?= $_SESSION['login_idx']; ?>';
-                          var nickname = '<?= $_SESSION['login_nickname']; ?>';
+                          var m_idx = '<?= $_SESSION['login_idx']; ?>';
 
                           $.ajax({
                               type: "post",         // 전송방식
                               url: "/main/getBuddy",    // 값을 넘겨줄 페이지 정보
                               dataType : "json",  // 보낼 데이터 타입
-                              data: {id: id, nickname: nickname},   // 보낼 데이터 정보
+                              data: {m_idx: m_idx},   // 보낼 데이터 정보
 
                               // 정상적으로 값이 넘어오면 실행될 메서드
                               success: function( data ) {
+                                  console.log(data);
                                   var temp = ''
                                   for ( var iCount = 0; iCount < data.length; iCount++ ) {
-                                      temp = "<li>" + data[iCount].m_idx + " / " + data[iCount].m_memberID + " / " + data[iCount].m_nickname +"</li>";
+                                      temp = "<li><a href='/timeline/index/" + data[iCount].m_idx + "'>" + data[iCount].m_nickname +"</a></li>"; //+ data[iCount].m_idx + " / " + data[iCount].m_memberID + " / "
                                       $("#my_buddy").append(temp);
                                   }
                               },
@@ -104,11 +135,9 @@ var_dump($_SESSION);
                   });
               });
           </script>
-      </ul>
-    </section>
-    <!-- 탑메뉴 끝  -->
-  </nav>
-
+        </ul>
+      </section>
+    </nav>
   <div class="off-canvas-wrap" data-offcanvas style="color: white;">
     <div class="inner-wrap">
       <aside class="right-off-canvas-menu">

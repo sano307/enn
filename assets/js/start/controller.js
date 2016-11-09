@@ -1,5 +1,5 @@
 home.controller('indexController', ['$scope', '$location', '$routeParams', '$http', function( $scope, $location, $routeParams, $http ) {
-    $scope.effect = 'pop';
+    $scope.effect = 'slidedown';
     $scope.pageClass = 'start';
 
     $scope.login = function() {
@@ -20,7 +20,6 @@ home.controller('loginController', ['$scope', '$location', '$routeParams', '$htt
     };
 
     $scope.toLogin = function() {
-        console.log($scope.loginData);
         $http({
             method: 'post',
             url: '/start/toLogin',
@@ -68,8 +67,7 @@ home.controller('joinController', ['$scope', '$location', '$routeParams', '$http
         // 선택된 국가에 속하는 지역들을 뽑아온다.
         $http({
             method: 'post',
-            url: '/start/getRegion',
-            data: {'country': selectedCountry.key},
+            url: '/start/getWholeRegion',
             headers: {'Content-Type': 'application/json; charset=utf-8'}
         }).success(function(data, status, headers, config) {
             if( data ) {

@@ -1,7 +1,7 @@
 .content .page {
     position: absolute;
     padding: 30px;
-    background: #CBE0CF;
+    background: #FFFFFF;
     text-align: left;
     width: 100%;
     height: 100%;
@@ -9,21 +9,21 @@
 
 .content .start {
     color: #CCC;
-    background: url(../../img/main_background.jpg) no-repeat 0 0;
-    background-size: cover;
+    background: url(../../img/main_background4.jpg) no-repeat center center fixed;
     font-size: 14px;
+    background-size: cover;
 }
 
 .content .login {
     color: #CCC;
-    background: #BBE2F3 no-repeat 0 0;
+    background: url(../../img/main_background4.jpg) no-repeat center center fixed;
     background-size: cover;
     font-size: 14px;
 }
 
 .content .join {
     color: #CCC;
-    background: #BBE2F3 no-repeat 0 0;
+    background: url(../../img/main_background4.jpg) no-repeat center center fixed;
     background-size: cover;
     font-size: 14px;
 }

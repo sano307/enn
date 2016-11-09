@@ -1,15 +1,20 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
-class templates extends CI_Controller {
-	function __construct() {
-		parent::__construct();
-		$this->load->helper('url');
-	}
+defined('BASEPATH') OR exit('No direct script access allowed');
+class Templates extends CI_Controller {
+    function __construct() {
+        parent::__construct();
+        $this->load->helper('url');
+    }
 
-	public function logout() {
-		unset($_SESSION['login_idx']);
-		unset($_SESSION['login_nickname']);
+    public function logout() {
+        $this->load->model('start_model');
+        $this->start_model->currentDisconnect($_SESSION['login_idx']);
 
-		$this->load->view('start/index');
-	}
+        unset($_SESSION['login_idx']);
+        unset($_SESSION['login_nickname']);
+        unset($_SESSION['login_profileThumbName']);
+        unset($_SESSION['login_profileThumbExt']);
+
+        $this->load->view('start/index');
+    }
 }

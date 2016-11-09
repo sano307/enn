@@ -1,15 +1,30 @@
-<div id="camp" class="row">
-    <div class="campMenu large-2 columns">Menu</div>
-    <div class="content large-8 columns" back-animation ng-app="camp">
-        <div ng-view ng-class="[effect, pageClass]" class="page"></div>
+<div id="camp" class="row" ng-app="camp">
+    <div class="campMenu large-2 columns" ng-controller="menuController">
+<!--        <a class="button radius expand" ng-click="camp()">Whole Camp</a>
+        <a class="button radius expand" ng-click="myCamp()">My Camp</a>
+        <<a class="button radius expand" ng-click="create()" role="button">camp create</a>-->
+        <a class="button radius expand" ui-sref="index">Whole Camp</a>
+        <a class="button radius expand" ui-sref="create">Create Camp</a>
+<!--        <div class="center-row">
+            <div class="large-12  columns">
+                <ul class="inline-list center">
+                    <i class="fi-magnifying-glass"></i>
+                    <a href="#" class="search-icon">
+                        <li class="search-field"></li>
+                    </a>
+                    <div class="row collapse">
+                        <div class="small-12 columns">
+                            <input type="text" class="dream-search" placeholder="Search" ng-model="searchText" ng-keypress="keyPress($event)" required/>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>-->
     </div>
-    <div class="campRecommand large-2 columns">Recommand</div>
+    <div class="content large-7 columns" back-animation>
+        <div ui-view="campMain" ng-class="[effect, pageClass]" class="page"></div>
+    </div>
+    <div class="content large-3 columns" back-animation>
+        <div ui-view="campOption" ng-class="[effect, pageClass]" class="page"></div>
+    </div>
 </div>
-<script src="<?php echo URL; ?>lib/angular/angular.js"></script>
-<script src="<?php echo URL; ?>lib/angular/angular-route.min.js"></script>
-<script src="<?php echo URL; ?>lib/angular/angular-animate.min.js"></script>
-<script src="<?php echo URL; ?>lib/prism/prism.js"></script>
-
-<script src="<?php echo URL; ?>assets/js/camp/route.js"></script>
-<script src="<?php echo URL; ?>assets/js/camp/controller.js"></script>
-<script src="<?php echo URL; ?>assets/js/camp/directive.js"></script>

@@ -14,8 +14,22 @@ class Start extends CI_Controller {
 
 	public function getRegion() {
 		$postData = json_decode(file_get_contents("php://input"), true);
-		$nowCountry = $postData['country'];
-		$result = $this->start_model->getRegion($nowCountry);
+		$country = $postData['country'];
+		$result = $this->start_model->getRegion($country);
+
+		$arr = [];
+		$iCount = 0;
+
+		foreach( $result as $row ) {
+			$arr[$iCount] = $row;
+			$iCount++;
+		}
+
+		echo json_encode($arr);
+	}
+
+	public function getWholeRegion() {
+		$result = $this->start_model->getWholeRegion();
 
 		$arr = [];
 		$iCount = 0;
@@ -45,18 +59,14 @@ class Start extends CI_Controller {
 			// 중복되지 않은 아이디라면
 			$result = $this->start_model->IsMemberNickname($joinInfo['m_nickname']);
 			if ( !$result ) {
-				// 중복된 닉네임이라면
 				// 중복되지 않은 닉네임이라면
-				$result = $this->start_model->setNewMember($joinInfo);
-				if ( !$result ) {
-					// 새로운 회원 정보 입력 실패
-					$temp->msg = 'failed';
-				} else {
-					// 새로운 회원 정보 입력 성공
-					$temp->msg = 'success';
-				}
+				$m_idx = $this->start_model->setNewMember($joinInfo);
+
+				$imageSavePath = $_SERVER['DOCUMENT_ROOT'] . '/public/img/member/' . $m_idx;
+				mkdir($imageSavePath);
+				$temp->msg = 'success';
 			} else {
-				// 중복되지 않은 닉네임이라면
+				// 중복된 닉네임이라면
 				$temp->msg = 'alreadyNickname';
 			}
 		} else {
@@ -82,11 +92,12 @@ class Start extends CI_Controller {
 			$temp->msg = 'failed';
 		} else {
 			// 로그인 성공
+			$this->start_model->currentConnect($result[0]->m_idx);
 			$temp->msg = 'success';
+			$temp->nickname = $result[0]->m_nickname;
+			$_SESSION['login_idx'] = $result[0]->m_idx;
+			$_SESSION['login_nickname'] = $result[0]->m_nickname;
 		}
-
-		$_SESSION['login_idx'] = $result[0]->m_idx;
-		$_SESSION['login_nickname'] = $result[0]->m_nickname;
 
 		$arr = $temp;
 		echo json_encode($arr);

@@ -1,0 +1,76 @@
+/* line 7, ../ios-toggle.scss */
+.ios-toggle {
+    display: inline-block;
+    vertical-align: middle;
+}
+/* line 11, ../ios-toggle.scss */
+.ios-toggle > div {
+    margin: 0;
+    padding: 0;
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 59.23077px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    background-color: #fafafa;
+    border: 1px solid #d3d3d3;
+    -moz-border-radius: 35px;
+    -webkit-border-radius: 35px;
+    border-radius: 35px;
+    -moz-box-shadow: inset 0 0 0 1px #d3d3d3;
+    -webkit-box-shadow: inset 0 0 0 1px #d3d3d3;
+    box-shadow: inset 0 0 0 1px #d3d3d3;
+    -moz-transition: border 0.25s 0.15s, box-shadow 0.25s 0.3s, padding 0.25s;
+    -o-transition: border 0.25s 0.15s, box-shadow 0.25s 0.3s, padding 0.25s;
+    -webkit-transition: border 0.25s, box-shadow 0.25s, padding 0.25s;
+    -webkit-transition-delay: 0.15s, 0.3s, 0s;
+    transition: border 0.25s 0.15s, box-shadow 0.25s 0.3s, padding 0.25s;
+}
+/* line 36, ../ios-toggle.scss */
+.ios-toggle > div:after {
+    content: '';
+    display: block;
+    height: 33px;
+    position: absolute;
+    left: 0;
+    right: 22.23077px;
+    top: 0;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    -moz-border-radius: 33px;
+    -webkit-border-radius: 33px;
+    border-radius: 33px;
+    -moz-box-shadow: inset 0 -3px 3px rgba(0, 0, 0, 0.025), 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 -3px 3px rgba(0, 0, 0, 0.025), 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 -3px 3px rgba(0, 0, 0, 0.025), 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.1);
+    -moz-transition: border 0.25s 0.15s, left 0.25s 0.1s, right 0.15s 0.175s;
+    -o-transition: border 0.25s 0.15s, left 0.25s 0.1s, right 0.15s 0.175s;
+    -webkit-transition: border 0.25s, left 0.25s, right 0.15s;
+    -webkit-transition-delay: 0.15s, 0.1s, 0.175s;
+    transition: border 0.25s 0.15s, left 0.25s 0.1s, right 0.15s 0.175s;
+}
+/* line 59, ../ios-toggle.scss */
+.ios-toggle > div.coActive {
+    border-color: #53d76a;
+    -moz-box-shadow: inset 0 0 0 18.5px #53d76a;
+    -webkit-box-shadow: inset 0 0 0 18.5px #53d76a;
+    box-shadow: inset 0 0 0 18.5px #53d76a;
+    -moz-transition: border 0.25s, box-shadow 0.25s, padding 0.25s 0.15s;
+    -o-transition: border 0.25s, box-shadow 0.25s, padding 0.25s 0.15s;
+    -webkit-transition: border 0.25s, box-shadow 0.25s, padding 0.25s;
+    -webkit-transition-delay: 0s, 0s, 0.15s;
+    transition: border 0.25s, box-shadow 0.25s, padding 0.25s 0.15s;
+}
+/* line 67, ../ios-toggle.scss */
+.ios-toggle > div.coActive:after {
+    border-color: #53d76a;
+    left: 22.23077px;
+    right: 0;
+    -moz-transition: border 0.25s, left 0.15s 0.25s, right 0.25s 0.175s;
+    -o-transition: border 0.25s, left 0.15s 0.25s, right 0.25s 0.175s;
+    -webkit-transition: border 0.25s, left 0.15s, right 0.25s;
+    -webkit-transition-delay: 0s, 0.25s, 0.175s;
+    transition: border 0.25s, left 0.15s 0.25s, right 0.25s 0.175s;
+}

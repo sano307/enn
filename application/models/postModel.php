@@ -4,23 +4,33 @@ class postModel extends CI_Model{
       parent::__construct();
   }
 
+    // 메인페이지나 타임라인에서 포스트를 작성시 정보 입력
+    public function setMemberPost( $writeInfo ) {
+        $this->db->set('p_registedTime', 'NOW()', false);
+        $this->db->insert('post', $writeInfo);
+        return $this->db->insert_id();
+    }
+
+    // 메인페이지나 타임라인에서 포스트를 작성시 이미지 정보 입력
+    public function setMemberPostImage( $writeImageInfo ) {
+        $this->db->insert('post_attach', $writeImageInfo);
+    }
+
     public function insertNewPostInfo( $argPostInfo, $argPostThumbInfo) {
-        $argPostWriter = strip_tags($argPostInfo['writer']);
-        $argPostCamp_idx = strip_tags($argPostInfo['c_idx']);
+        $argPostWriter = (int)$argPostInfo['writer'];
         $argPostContent = strip_tags($argPostInfo['content']);
         $argPostThumbName = strip_tags($argPostThumbInfo['name']);
         $argPostThumbExt = strip_tags($argPostThumbInfo['ext']);
 
-        $sql = "SELECT m_idx FROM member WHERE m_nickname = '$argPostWriter'";
+        /*$sql = "SELECT m_idx FROM member WHERE m_nickname = '$argPostWriter'";
         // $query = $this->db->prepare( $sql );
         // $query->execute();
         // $argPostWriterNum = $query->fetchColumn(0);
-        $this->db->query($sql);
+        $argPostWriterNum = $this->db->query($sql)->row_array();*/
 
-        $sql = "INSERT INTO post (m_idx,c_idx, p_content, p_registedTime, p_postThumbName, p_postThumbExt, p_postHits, p_postGoods) VALUES (:m_idx,:c_idx, :p_content, :p_registedTime, :p_postThumbName, :p_postThumbExt, :p_postHits, :p_postGoods)";
-        $query = $this->db->prepare( $sql );
-        $query->execute( array(':m_idx' => $argPostWriterNum,':c_idx'=> $argPostCamp_idx, ':p_content' => $argPostContent, ':p_registedTime' =>  date("Y-m-d H:i:s"), ':p_postThumbName' => $argPostThumbName, ':p_postThumbExt' => $argPostThumbExt, ':p_postHits' => 0, ':p_postGoods' => 0) );
-        return $this->db->lastInsertId();
+        $sql = "INSERT INTO post (m_idx,c_idx, p_content, p_postThumbName, p_postThumbExt, p_postHits, p_postGoods) VALUES ($argPostWriter, null, '$argPostContent', '$argPostThumbName', '$argPostThumbExt', 0, 0)";
+        $this->db->query($sql);
+        return $this->db->insert_Id();
     }
 
     public function insertNewImageInfo( $argPostImageInfo ) {
@@ -28,9 +38,8 @@ class postModel extends CI_Model{
         $argImageName = strip_tags($argPostImageInfo['name']);
         $argImageExt = strip_tags($argPostImageInfo['ext']);
 
-        $sql = "INSERT INTO post_attach (p_idx, pa_postImgName, pa_postImgExt) VALUES (:p_idx, :pa_postImgName, :pa_postImgExt)";
-        $query = $this->db->prepare( $sql );
-        $query->execute( array(':p_idx' => $argPostNum, ':pa_postImgName' => $argImageName, ':pa_postImgExt' => $argImageExt) );
+        $sql = "INSERT INTO post_attach (p_idx, pa_postImgName, pa_postImgExt) VALUES ($argPostNum, $argImageName, $argImageExt)";
+        $this->db->query($sql);
     }
 
     public function getMemberPostInfo( $argPostWriterm_idx ) {
@@ -42,6 +51,7 @@ class postModel extends CI_Model{
         // return $query->fetchAll(PDO::FETCH_ASSOC);
         return $this->db->query($sql)->result();
     }
+
 
 
 }

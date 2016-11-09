@@ -1,9 +1,3 @@
-<div align="center">
-<form action="/buddy_my/member_search" method="post">
-    <input type="text" id="buddySearch" name="buddySearch" placeholder="search">
-    <input type="submit" value="검색">
-</form>
-<br>
 <style>
 .service {
 width: 100%;
@@ -51,6 +45,35 @@ transition: all 0.3s ease; }
   transform: scale(1); }
 
 </style>
+<br>
+<br>
+
+<div align=center>
+	<div class="row">
+			<div class="small-12 large-4 columns">
+	      <a href="/buddy_my/index/<?php echo @$_SESSION['login_idx']?>" class="fancy radius button"><i class="fi-address-book"></i>My Buddy</a>
+	    </div>
+      <div class="small-12 large-4 columns">
+        <a href="/buddy_my/member_search" class="fancy radius button"><i class="fi-magnifying-glass"></i>User Search</a>
+      </div>
+			<div class="small-12 large-4 columns">
+	      <a href="/buddy_my/request/<?php echo @$_SESSION['login_idx']?>" class="fancy radius button"><i class="fi-plus"></i>Buddy Request</a>
+	    </div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns ">
+<h1><i class="fi-page-search"></i>User Search</h1>
+<div align="center">
+  <div class="large-4 columns ">
+<form action="/buddy_my/member_search" method="post">
+    <input type="text" id="buddySearch" name="buddySearch" placeholder="닉네임을 입력해주세요.">
+    <!-- <input type="submit" value="검색"> -->
+</form>
+</div>
+<br>
+
 <?php
 $buddySearch = isset($_POST['buddySearch']) ? $_POST['buddySearch'] : null;
 if($buddySearch) {
@@ -95,3 +118,6 @@ if($buddySearch) {
         }
     })
 </script>
+
+</div>
+</div>

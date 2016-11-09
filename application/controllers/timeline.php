@@ -1,29 +1,38 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
+
 	class Timeline extends CI_Controller{
 		function __construct(){
 			parent::__construct();
 			$this->load->database();
+
 		}
 		public function index( $m_idx ) {
-			// $timeline_model = $this->loadModel("timelineModel");
+
 			$this->load->model('timelineModel');
-			// member -> nickname, profile
-			// $timelineMemberInfo = $timeline_model->getMemberInfo($m_idx);
 			$timelineMemberInfo = $this->timelineModel->getMemberInfo($m_idx);
-
-			// post ->
-			// $timelinePostInfo = $timeline_model->getPostInfo($m_idx);
-			$timelinePostInfo = $this->timelineModel->getPostInfo($m_idx);
-			// group ->
-			// $timelineGroupInfo = $timeline_model->getGroupInfo($m_idx);
+			$timelinePostInfo = $this->timelineModel->getPostInfo($m_idx,1,3);
 			$timelineGroupInfo = $this->timelineModel->getGroupInfo($m_idx);
-
+			$this->load->model('BuddyModel');
+			$login_idx=$_SESSION['login_idx'];
+			$buddystate = $this->BuddyModel->IsBuddyCheck($m_idx,$login_idx);
 			// require 'application/views/_templates/header.php';
+			$p=null;
+			$page = (int) (!$p) ? 1 : $p+1;
 			$this->load->view('_templates/header');
 			$this->load->view('timeline/index',array('timelineMemberInfo'=>$timelineMemberInfo,
 																					 'timelinePostInfo'=>$timelinePostInfo,
-																					'timelineGroupInfo'=>$timelineGroupInfo));
+																					'timelineGroupInfo'=>$timelineGroupInfo,
+																					'buddystate'=>$buddystate,'next' => $page));
 			$this->load->view('_templates/footer');
+		}
+		public function scroll($p=0,$m_idx){
+			$this->load->helper('url');
+			$this->load->model('timelineModel');
+			$limit = 3;
+			$page = (int) (!$p) ? 1 : $p+1;
+			$timelinePostInfo = $this->timelineModel->getPostInfo($m_idx,$page,$limit);
+			$timelineMemberInfo = $this->timelineModel->getMemberInfo($m_idx);
+			$this->load->view('/timeline/index', array('timelineMemberInfo'=>$timelineMemberInfo,
+													'timelinePostInfo' => $timelinePostInfo , 'next' => $page));
 		}
 	}

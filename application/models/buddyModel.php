@@ -7,23 +7,24 @@ class BuddyModel extends CI_Model
     }
 
     // 친구 목록
-    public function getBuddyList($argLoginMemberNum, $argRequestedMember) {
+
+    public function getBuddyList($argLoginMemberNum) {  // , $argRequestedMember
         $acceptedMemberNum = (int)$argLoginMemberNum;
-        $requestedMember = strip_tags($argRequestedMember);
+        //$requestedMember = strip_tags($argRequestedMember);
 
-        $sql = "select * from Buddy where b_acceptanceStateBuddy = 1 and (m_idx = $acceptedMemberNum or b_requestedMember = '$requestedMember')";
+        $sql = "select m.m_nickname, m.m_sex,m.m_nationally,m.m_region, m.m_profileImgName, m.m_profileImgExt ,b.b_request_m_idx, b.m_idx b_midx from member m, Buddy b where b.b_acceptanceStateBuddy = '1' and b.m_idx = $acceptedMemberNum and m.m_idx = b.b_request_m_idx";
         return $this->db->query($sql)->result();
     }
 
-    public function getMyBuddyNickname( $id ) {
-        $id = (int)$id;
-        $sql = "select b_requestedMember from Buddy where b_acceptanceStateBuddy = 1 and m_idx = $id";
+    public function getMyBuddyIdx( $m_idx ) {
+        $m_idx = (int)$m_idx;
+        $sql = "SELECT b_request_m_idx FROM buddy WHERE m_idx = $m_idx";
         return $this->db->query($sql)->result();
     }
 
-    public function getMyBuddyInfo( $nickname ) {
-        $nickname = strip_tags($nickname);
-        $sql = "SELECT m_idx, m_memberID, m_nickname FROM Member WHERE m_nickname = '$nickname'";
+    public function getMyBuddyInfo( $m_idx ) {
+        $m_idx = (int)$m_idx;
+        $sql = "SELECT m_idx, m_memberID, m_nickname FROM member WHERE m_idx = $m_idx and m_connectionState = 1";
         return $this->db->query($sql)->result();
     }
 
@@ -32,20 +33,27 @@ class BuddyModel extends CI_Model
     {
         $acceptedMemberNum = (int)$argBuddySearchMemberNum;
 
-        $sql = "select * from Buddy where b_acceptanceStateBuddy = '0' and m_idx = {$acceptedMemberNum}";
+        $sql = "select m.m_nickname, b.m_idx b_midx, m.m_idx m_idx, b.b_idx, b.b_request_m_idx, m.m_region, m.m_connectionState, m.m_profileImgName, m.m_profileImgExt from Buddy b, member m where b.b_acceptanceStateBuddy = '0' and b.m_idx = {$acceptedMemberNum} and m.m_idx = b.b_request_m_idx";
         return $this->db->query($sql)->result();
     }
 
     // 신청받은 친구수락 혹은 거절
-    public function addBuddy($argValue, $acceptNum)
+    public function addBuddy($argValue, $acceptNum, $b_idx, $request_idx)
     {
         if ($argValue == 1) {
-            $sql = "update Buddy set b_acceptanceStateBuddy = 1 where m_idx = $acceptNum";
+            $sql = "update Buddy set b_acceptanceStateBuddy = 1 where m_idx = $acceptNum and b_idx = $b_idx";
+            $this->db->query($sql);
+            $sql = "insert into Buddy(m_idx, b_request_m_idx, b_acceptanceStateBuddy) values($request_idx, $acceptNum, '1')";
             $this->db->query($sql);
         } else {
-            $sql = "delete from Buddy where m_idx = $acceptNum";
+            $sql = "delete from Buddy where b_idx = $b_idx";
             $this->db->query($sql);
         }
+    }
+    public function deleteBuddy($accept_idx, $request_idx)
+    {
+        $sql = "delete from buddy where (m_idx = $accept_idx and b_request_m_idx = $request_idx) or (m_idx = $request_idx and b_request_m_idx = $accept_idx)";
+        $this->db->query($sql);
     }
 
     public function getSearchBuddyList($argBuddySearchInfo)
@@ -60,9 +68,9 @@ class BuddyModel extends CI_Model
     public function getSearchBuddyList_My($argBuddySearchInfo)
     {
         $searchNickname = strip_tags($argBuddySearchInfo['searchNickname_my']);
-        $searchMemberNum = (int)$argBuddySearchInfo['searchMemberNum'];
+        $searchMemberNum = (int)$argBuddySearchInfo['m_idx'];
 
-        $sql = "select * from buddy where m_idx = $searchMemberNum and b_requestedMember like '%$searchNickname%'";
+        $sql = "select m.m_idx m_idx, m.m_nickname, m.m_sex, m.m_profileImgName, m.m_profileImgExt, b.m_idx b_midx, b.b_request_m_idx from member m, buddy b where b.m_idx = $searchMemberNum and m.m_idx = b.b_request_m_idx and m.m_nickname like '%$searchNickname%'";
         return $this->db->query($sql)->result();
     }
 
@@ -81,7 +89,7 @@ class BuddyModel extends CI_Model
         $loginMemberNation = strip_tags($argMemberInfo['m_nationally']);
         $loginMemberRegion = strip_tags($argMemberInfo['m_region']);
 
-        $sql = "select * from member where m_idx != $loginMemberNum and m_nationally != '$loginMemberNation' and m_region = '$loginMemberRegion'";
+        $sql = "select * from member where m_idx != $loginMemberNum and m_nationally != '$loginMemberNation' order by m_idx desc limit 0,3";// and m_region = '$loginMemberRegion'
         return $this->db->query($sql)->result();
     }
 
@@ -106,22 +114,19 @@ class BuddyModel extends CI_Model
 
     public function IsBuddyCheck($requestedInfo, $acceptedInfo)
     {
-        $requested_idx = (int)$requestedInfo['idx'];
-        $requested_nickname = strip_tags($requestedInfo['nickname']);
-        $accepted_idx = (int)$acceptedInfo['idx'];
-        $accepted_nickname = strip_tags($acceptedInfo['nickname']);
-
-        $sql = "SELECT * FROM buddy WHERE (m_idx = $accepted_idx AND b_requestedMember = '$requested_nickname') OR (m_idx = $requested_idx AND b_requestedMember = '$accepted_nickname')";
+      $requested_idx = $requestedInfo;
+      $accepted_idx = $acceptedInfo;
+        $sql = "SELECT * FROM buddy WHERE (m_idx = $accepted_idx AND b_request_m_idx = '$requested_idx') OR (m_idx = $requested_idx AND b_request_m_idx = '$accepted_idx')";
         return $this->db->query($sql)->result();
     }
 
     // 판단 후에, 두 회원간의 친구 요청이 없다면 친구 요청
     public function insertNewBuddyInfo($requestedInfo, $acceptedInfo)
     {
-        $requested_nickname = $requestedInfo;
+        $request_idx = $requestedInfo;
         $accepted_idx = $acceptedInfo;
 
-        $sql = "INSERT INTO buddy (m_idx, b_requestedMember, b_acceptanceStateBuddy) VALUES (:m_idx, :b_requestedMember, :b_acceptanceStateBuddy)";
-        $this->db->query($sql, array(':m_idx' => $accepted_idx, ':b_requestedMember' => $requested_nickname, ':b_acceptanceStateBuddy' => '0'));
+        $sql = "INSERT INTO buddy (m_idx, b_request_m_idx, b_acceptanceStateBuddy) VALUES ($accepted_idx, $request_idx, '0')";
+        $this->db->query($sql);
     }
 }
